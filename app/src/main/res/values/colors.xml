@@ -1,0 +1,9 @@
+<resources>
+    <color name="accent_teal">#1B6C80</color>
+    <color name="primary_charcoal">#131416</color>
+    <color name="ground_light">#F9FBFC</color>
+    <color name="surface_white">#FFFFFF</color>
+    <color name="border_subtle">#E8EAEC</color>
+    <color name="alarm_dark">#0F1416</color>
+    <color name="alarm_stop_red">#C4242A</color>
+</resources>
