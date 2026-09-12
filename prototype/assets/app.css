@@ -1,0 +1,1005 @@
+/* GeoReminder - Mobile App Design Prototype CSS
+   Framed Sheet style derived from tasteskill design-taste-frontend
+*/
+
+:root {
+  --ground: #f9fbfc;
+  --surface: #ffffff;
+  --raised: #f4f6f8;
+  --active: #ebedee;
+  --border: #e8eaec;
+  --rule: #f0f1f2;
+  --control: #cdced1;
+  --text: #131416;
+  --muted: #4e5052;
+  --faint: #525456;
+  --accent: #1b6c80;
+  --accent-light: #e6f1f4;
+  --primary: #131416;
+  --primary-ink: #ffffff;
+  --positive: #1e7b4f;
+  --negative: #c4242a;
+  --warning: #92400e;
+  --pill-positive-bg: #dcfae5;
+  --pill-positive-ink: #04250e;
+  --pill-negative-bg: #ffedea;
+  --pill-negative-ink: #831c1e;
+  --pill-warning-bg: #fffbeb;
+  --pill-warning-ink: #92400e;
+  --pill-neutral-bg: #ebedee;
+  --pill-neutral-ink: #353736;
+  --radius-card: 8px;
+  --radius-control: 6px;
+  --radius-sheet: 16px;
+  --gap: 16px;
+  --pad: 16px;
+  --control-height: 38px;
+  --font: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--ground);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 14px;
+  line-height: 20px;
+  -webkit-font-smoothing: antialiased;
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+.num, .tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Prototype Shell & Layout */
+.proto-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--ground);
+}
+
+/* Sidebar navigation */
+.proto-sidebar {
+  width: 250px;
+  background-color: var(--ground);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  padding: 20px 16px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 900px) {
+  .proto-sidebar {
+    display: none;
+  }
+}
+
+.app-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 20px;
+}
+
+.app-logo {
+  width: 32px;
+  height: 32px;
+  background-color: var(--accent);
+  color: #ffffff;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app-brand .brand-text {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.app-brand .badge {
+  font-size: 13px;
+  padding: 2px 6px;
+  background-color: var(--raised);
+  border-radius: 4px;
+  color: var(--muted);
+}
+
+.nav-section-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #383a3c;
+  margin: 14px 8px 6px 8px;
+}
+
+.nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 12px;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  color: var(--muted);
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 150ms ease, color 150ms ease;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.nav-btn:hover {
+  background-color: var(--raised);
+  color: var(--text);
+}
+
+.nav-btn.active {
+  background-color: var(--surface);
+  color: var(--text);
+  font-weight: 500;
+  border: 1px solid var(--border);
+}
+
+.nav-btn svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+/* Device View Selector */
+.device-selector {
+  margin-top: auto;
+  padding: 12px;
+  background-color: var(--raised);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.device-selector-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.device-options {
+  display: flex;
+  gap: 6px;
+}
+
+.device-opt-btn {
+  flex: 1;
+  padding: 6px 8px;
+  font-size: 13px;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--muted);
+  text-align: center;
+}
+
+.device-opt-btn.active {
+  background-color: var(--primary);
+  color: var(--primary-ink);
+  border-color: var(--primary);
+}
+
+/* Main Workspace */
+.proto-workspace {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  overflow-y: auto;
+  align-items: center;
+  width: 100%;
+}
+
+@media (max-width: 500px) {
+  .proto-workspace {
+    padding: 0;
+  }
+}
+
+/* Phone Frame Simulator */
+.phone-frame {
+  width: 100%;
+  max-width: 412px;
+  height: 870px;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+@media (max-width: 500px) {
+  .phone-frame {
+    max-width: 100%;
+    height: 100vh;
+    border-radius: 0;
+    border: none;
+  }
+}
+
+/* Fullscreen mode when toggled */
+.phone-frame.mode-expanded {
+  width: 100%;
+  max-width: 1100px;
+  height: 800px;
+  border-radius: 16px;
+}
+
+/* Android Status Bar */
+.android-status-bar {
+  height: 38px;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  font-weight: 500;
+  background-color: var(--surface);
+  border-bottom: 1px solid var(--rule);
+  z-index: 100;
+  flex-shrink: 0;
+}
+
+.android-status-icons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Phone Screen Content */
+.phone-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  background-color: var(--ground);
+}
+
+/* App Header */
+.app-header {
+  height: 52px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--surface);
+  border-bottom: 1px solid var(--border);
+  z-index: 90;
+  flex-shrink: 0;
+}
+
+.app-header h1.app-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.leaflet-control-attribution {
+  margin-right: 16px !important;
+  margin-bottom: 8px !important;
+  font-size: 11px !important;
+}
+
+code, kbd, samp, pre {
+  font-family: inherit;
+}
+
+.header-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.icon-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  background: transparent;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text);
+}
+
+.icon-btn:hover {
+  background-color: var(--raised);
+}
+
+/* Screen Views */
+.screen-view {
+  flex: 1;
+  display: none;
+  flex-direction: column;
+  overflow-y: auto;
+  position: relative;
+}
+
+.screen-view.active {
+  display: flex;
+}
+
+/* Map Screen Specifics */
+.map-container-wrap {
+  flex: 1;
+  position: relative;
+  min-height: 220px;
+  background-color: #e5e3df;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* Map Floating Search Bar */
+.map-search-bar {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  z-index: 500;
+  display: flex;
+  gap: 6px;
+}
+
+.search-input-wrap {
+  flex: 1;
+  position: relative;
+  background-color: var(--surface);
+  border: 1px solid var(--control);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+}
+
+.search-input-wrap svg {
+  color: var(--muted);
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.search-input {
+  width: 100%;
+  height: 38px;
+  border: none;
+  background: transparent;
+  padding: 0 8px;
+  outline: none;
+  font-size: 14px;
+}
+
+.locate-btn {
+  width: 38px;
+  height: 38px;
+  background-color: var(--surface);
+  border: 1px solid var(--control);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* Map Floating Radius Card */
+.map-bottom-drawer {
+  background-color: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 10px 20px 14px 20px;
+  z-index: 500;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  transition: max-height 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  max-height: 480px;
+  overflow: hidden;
+}
+
+.map-bottom-drawer.collapsed {
+  max-height: 54px;
+}
+
+.drawer-drag-handle {
+  width: 36px;
+  height: 4px;
+  background-color: var(--control);
+  border-radius: 2px;
+  margin: 0 auto 4px auto;
+  cursor: pointer;
+}
+
+.drawer-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.drawer-title-row h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.coords-badge {
+  font-size: 13px;
+  color: var(--muted);
+  background-color: var(--raised);
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.form-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.form-input {
+  height: 38px;
+  border: 1px solid var(--control);
+  border-radius: 6px;
+  padding: 0 12px;
+  background-color: var(--surface);
+  outline: none;
+  font-size: 14px;
+}
+
+.form-input:focus {
+  border-color: var(--accent);
+}
+
+/* Radius Slider Control */
+.radius-slider-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+}
+
+.radius-value-highlight {
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.slider-range {
+  width: 100%;
+  accent-color: var(--accent);
+  cursor: pointer;
+  height: 6px;
+}
+
+/* Trigger Type Segmented Control */
+.trigger-choice-group {
+  display: flex;
+  gap: 8px;
+}
+
+.trigger-choice-btn {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  background-color: var(--raised);
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  align-items: flex-start;
+  transition: background-color 150ms ease, border-color 150ms ease;
+}
+
+.trigger-choice-btn.selected {
+  background-color: var(--surface);
+  border-color: var(--accent);
+}
+
+.trigger-choice-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.trigger-choice-sub {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.primary-btn {
+  height: 42px;
+  background-color: var(--primary);
+  color: var(--primary-ink);
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: opacity 150ms ease;
+  margin: 4px 0;
+}
+
+.primary-btn:hover {
+  opacity: 0.92;
+}
+
+/* Reminders List Screen */
+.reminders-list-container {
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.reminder-card {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.reminder-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.reminder-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0 0 2px 0;
+}
+
+.reminder-location-name {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.reminder-badge-group {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.badge-pill {
+  font-size: 12px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.badge-alarm {
+  background-color: var(--pill-warning-bg);
+  color: var(--pill-warning-ink);
+}
+
+.badge-notification {
+  background-color: var(--pill-neutral-bg);
+  color: var(--pill-neutral-ink);
+}
+
+.badge-radius {
+  background-color: var(--accent-light);
+  color: var(--accent);
+}
+
+.reminder-meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: var(--muted);
+  border-top: 1px solid var(--rule);
+  padding-top: 10px;
+}
+
+.reminder-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.action-text-btn {
+  background: transparent;
+  border: none;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--accent);
+  cursor: pointer;
+  padding: 0;
+}
+
+.action-text-btn.delete {
+  color: var(--negative);
+}
+
+/* Offline Maps Manager Screen */
+.offline-manager-container {
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.offline-stats-panel {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.offline-stat-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.offline-stat-label {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.offline-stat-val {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text);
+  margin-top: 2px;
+}
+
+.offline-downloader-card {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.download-progress-box {
+  background-color: var(--raised);
+  border-radius: 6px;
+  padding: 12px;
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.download-progress-bar-bg {
+  height: 6px;
+  background-color: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.download-progress-bar-fill {
+  height: 100%;
+  width: 0%;
+  background-color: var(--accent);
+  transition: width 200ms ease;
+}
+
+.download-status-text {
+  font-size: 12px;
+  color: var(--muted);
+  display: flex;
+  justify-content: space-between;
+}
+
+.region-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.region-name {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.region-sub {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* Simulation Modal & Android Takeover Screens */
+
+/* 1. Android Heads-up Notification */
+.android-notification-toast {
+  position: absolute;
+  top: 48px;
+  left: 16px;
+  right: 16px;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px 16px;
+  z-index: 1000;
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+  transform: translateY(-80px);
+  opacity: 0;
+  transition: transform 250ms var(--ease-out), opacity 250ms ease;
+}
+
+.android-notification-toast.show {
+  display: flex;
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.notif-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.notif-header-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.notif-app-icon {
+  width: 16px;
+  height: 16px;
+  background-color: var(--accent);
+  border-radius: 3px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notif-content-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0;
+}
+
+.notif-content-body {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0;
+}
+
+.notif-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.notif-btn {
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background-color: var(--raised);
+}
+
+.notif-btn.dismiss {
+  color: var(--muted);
+}
+
+.notif-btn.open {
+  background-color: var(--primary);
+  color: var(--primary-ink);
+  border-color: var(--primary);
+}
+
+/* 2. Android Fullscreen Alarm Takeover */
+.android-alarm-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #0f1416;
+  color: #ffffff;
+  z-index: 2000;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 48px 24px 36px 24px;
+}
+
+.android-alarm-screen.show {
+  display: flex;
+}
+
+.alarm-time-display {
+  font-size: 44px;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+}
+
+.alarm-pulse-disc {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background-color: #1e262b;
+  border: 2px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.alarm-pulse-disc svg {
+  width: 48px;
+  height: 48px;
+  color: #ffffff;
+}
+
+.alarm-info-box {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.alarm-reminder-heading {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.alarm-reminder-note {
+  font-size: 14px;
+  color: #9ba1a6;
+  max-width: 280px;
+}
+
+.alarm-radius-chip {
+  align-self: center;
+  background-color: #273138;
+  color: #79c5d7;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 13px;
+}
+
+.alarm-control-actions {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.alarm-stop-btn {
+  height: 48px;
+  background-color: var(--negative);
+  color: #ffffff;
+  border: none;
+  border-radius: 24px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.alarm-snooze-btn {
+  height: 44px;
+  background-color: #273138;
+  color: #ffffff;
+  border: 1px solid #3c4850;
+  border-radius: 22px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* Android Bottom Navigation Bar */
+.android-nav-bar {
+  height: 58px;
+  background-color: var(--surface);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  z-index: 100;
+  flex-shrink: 0;
+}
+
+.bottom-tab-btn {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.bottom-tab-btn.active {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.bottom-tab-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* System gesture nav bar at bottom */
+.android-gesture-bar {
+  height: 16px;
+  background-color: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.gesture-pill {
+  width: 72px;
+  height: 4px;
+  background-color: var(--control);
+  border-radius: 2px;
+}

@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">GeoReminder</string>
+    <string name="channel_geofence_name">Geofence Reminders</string>
+    <string name="channel_geofence_desc">Notifications when entering or exiting geofence locations</string>
+    <string name="channel_service_name">Geofence Location Service</string>
+    <string name="channel_service_desc">Continuous background location monitoring for geofences</string>
+    <string name="channel_alarm_name">Geofence Alarm Alerts</string>
+    <string name="channel_alarm_desc">High-priority full-screen alarm alerts on arrival</string>
+</resources>
