@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Geofence ground zone ellipse under pin tip -->
+    <path
+        android:fillColor="#33FFFFFF"
+        android:strokeColor="#B3FFFFFF"
+        android:strokeWidth="1.8"
+        android:pathData="M37,71a17,5.5 0,1 0,34 0a17,5.5 0,1 0,-34 0" />
+    <!-- Main Location Pin Body -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,30C44.61,30 37,37.61 37,47C37,58.2 54,72 54,72C54,72 71,58.2 71,47C71,37.61 63.39,30 54,30Z" />
+    <!-- Pin Inner Core Cutout -->
+    <path
+        android:fillColor="#1B6C80"
+        android:pathData="M54,46.5m-7,0a7,7 0,1 1,14 0a7,7 0,1 1,-14 0" />
+    <!-- Pin Center Beacon -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,46.5m-3,0a3,3 0,1 1,6 0a3,3 0,1 1,-6 0" />
+    <!-- Alarm Alert Dot Badge (Top Right of Pin) -->
+    <path
+        android:fillColor="#F59E0B"
+        android:strokeColor="#1B6C80"
+        android:strokeWidth="2"
+        android:pathData="M66.5,34.5m-5.5,0a5.5,5.5 0,1 1,11 0a5.5,5.5 0,1 1,-11 0" />
+</vector>
