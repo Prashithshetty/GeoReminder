@@ -1,6 +1,6 @@
 # GeoReminder
 
-A simple, offline-first location reminder app for Android that doesn't use Google Play Services or track you. Built with Jetpack Compose and OpenStreetMap ([osmdroid](https://github.com/osmdroid/osmdroid)).
+A simple, offline-first location reminder and geofence alarm app for Android that doesn't use Google Play Services or track you. Built with Jetpack Compose and OpenStreetMap ([osmdroid](https://github.com/osmdroid/osmdroid)). A privacy-friendly, de-googled alternative to Google Keep location alerts for commuters and travelers.
 
 I built this because most geofence reminder apps either depend on Google Play Services, require an account, upload your coordinates to a server, or just show a quiet notification that you miss while commuting. GeoReminder works completely offline, can trigger a full-screen alarm like a wake-up clock, and lets you download map tiles so you don't need mobile data.
 
