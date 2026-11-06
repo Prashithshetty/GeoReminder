@@ -1,122 +1,70 @@
-# <img src="prototype/assets/icon.svg" width="40" height="40" align="center" alt="GeoReminder Icon" /> GeoReminder
+# GeoReminder
 
-[![Android CI & Release](https://github.com/prashith/GeoReminder/actions/workflows/android.yml/badge.svg)](https://github.com/prashith/GeoReminder/actions)
-[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
-[![Platform: Android 8.0+](https://img.shields.io/badge/Platform-Android%208.0%2B%20(API%2026%2B)-green.svg)](https://developer.android.com)
-[![Jetpack Compose](https://img.shields.io/badge/UI-Jetpack%20Compose-4285F4.svg)](https://developer.android.com/jetpack/compose)
-[![Maps: osmdroid](https://img.shields.io/badge/Maps-OpenStreetMap%20osmdroid-orange.svg)](https://github.com/osmdroid/osmdroid)
+A simple, offline-first location reminder app for Android that doesn't use Google Play Services or track you. Built with Jetpack Compose and OpenStreetMap ([osmdroid](https://github.com/osmdroid/osmdroid)).
 
-An open-source, privacy-first geofenced reminder app for Android built with **Jetpack Compose** and **OpenStreetMap** (`osmdroid`). Operates entirely offline without proprietary Google Play Services, location tracking, or telemetry.
+I built this because most geofence reminder apps either depend on Google Play Services, require an account, upload your coordinates to a server, or just show a quiet notification that you miss while commuting. GeoReminder works completely offline, can trigger a full-screen alarm like a wake-up clock, and lets you download map tiles so you don't need mobile data.
 
----
+## Features
 
-## 🌟 Key Features
+- **Offline maps**: Uses OpenStreetMap tiles. You can select an area on the map and pre-download tiles up to zoom level 16 for offline trips.
+- **Notification or loud alarm**: Choose between a normal heads-up notification or a full-screen alarm (uses the alarm audio stream, wakes the screen, and bypasses silent mode).
+- **Custom trigger radius**: 50m to 5km slider with real-time visual circle on the map.
+- **Jitter protection**: Includes a hysteresis buffer (~25% + 30m) so walking along the edge of a zone won't re-trigger the alarm repeatedly.
+- **Battery-friendly foreground service**: Runs a persistent foreground service with low-frequency GPS polling while moving and stops waking when reminders are disarmed.
+- **No accounts, no telemetry**: Reminders and downloaded tiles are stored locally in app storage.
 
-1. **100% Open-Source Maps & Offline Tile Storage**
-   - Renders OpenStreetMap vector/raster tiles using `osmdroid` — zero Google Maps API keys or account dependencies.
-   - Built-in **Offline Tile Downloader**: download map bounding boxes for offline use with live tile count, download progress, and storage quota controls.
-   - Automatic tile cache management and cache clearing.
+## Download
 
-2. **Precision Geofencing with Hysteresis**
-   - Interactive full-screen map with bottom sheet controls for quick reminders.
-   - Configurable trigger radius (50m to 5,000m) with live visual circle overlays.
-   - **Smart Hysteresis Buffer** (`radius * 1.25 + 30m`) prevents repetitive alarm triggers caused by GPS jitter when standing near a geofence boundary.
+Get the latest signed APK from the [Releases](https://github.com/Prashithshetty/GeoReminder/releases/latest) page:
 
-3. **Choice of Trigger Alert: Notification vs Full Alarm**
-   - **Notification Alert**: High-priority heads-up notification with custom sound, vibration, and one-tap completion.
-   - **Full-Screen Alarm**: Rings out loud on the alarm audio stream, bypasses Do Not Disturb/silent switches, wakes the device screen even when locked via `FLAG_KEEP_SCREEN_ON` and `setShowWhenLocked(true)`, featuring snooze and dismiss actions.
+- `GeoReminder-v1.0.0-Release.apk` (signed with debug fallback, ready to sideload)
+- Or install via ADB:
+  ```bash
+  adb install -r app/build/outputs/apk/release/app-release.apk
+  ```
 
-4. **Modern Android Architecture**
-   - **UI**: Modern Jetpack Compose Material 3 with adaptive layouts, custom icon, and Dark/Light mode theme support.
-   - **Background Location**: Low-power Foreground Location Service with sticky foreground notification (`FOREGROUND_SERVICE_TYPE_LOCATION`).
-   - **Storage**: Sequential coroutine-safe persistent storage with JSON serialization.
+## Permissions & Battery
 
----
+Android is strict about background location. For GeoReminder to reliably ring when you arrive somewhere:
 
-## 📱 Permissions Breakdown
+1. **Location ("Allow all the time")**: Needed so the foreground service can check your distance to saved pins when the screen is off or another app is open.
+2. **Alarms & Reminders**: Needed on Android 12+ (`SCHEDULE_EXACT_ALARM`) so snooze timers and alarm triggers fire at the exact second.
+3. **Battery Optimization**: Open the in-app "Engine" tab and disable battery optimization for GeoReminder. Aggressive OEM task killers (MIUI, OneUI, ColorOS) will otherwise kill the service after 15 minutes of screen-off time.
 
-GeoReminder only requests permissions strictly necessary for offline geofencing:
+## Build
 
-| Permission | Reason |
-|---|---|
-| `ACCESS_FINE_LOCATION` & `ACCESS_COARSE_LOCATION` | Required to calculate real-time distance to active geofence targets. |
-| `ACCESS_BACKGROUND_LOCATION` | Allows geofence checking when the screen is turned off or when navigating in other apps. |
-| `FOREGROUND_SERVICE` & `FOREGROUND_SERVICE_LOCATION` | Keeps the geofence engine alive reliably on Android 8.0+ and Android 14+. |
-| `POST_NOTIFICATIONS` | Displays heads-up alerts and persistent service status on Android 13+. |
-| `SCHEDULE_EXACT_ALARM` / `USE_EXACT_ALARM` | Ensures alarms fire at the exact millisecond when geofences trigger or snooze timers elapse. |
-| `WAKE_LOCK` | Wakes the CPU briefly to play alarm audio and render the full-screen alarm screen when locked. |
-| `VIBRATE` | Provides haptic feedback during geofence alerts. |
-| `INTERNET` | Only used to fetch OpenStreetMap tiles when downloading offline regions. |
+Requires JDK 17 and Android SDK 35+.
 
----
-
-## 🚀 Building & Installation
-
-### Prerequisites
-- JDK 17 (Java 17)
-- Android SDK Platform 35+ / Build Tools 35.0.0+
-
-### Build from Source
 ```bash
-# Clone the repository
-git clone https://github.com/prashith/GeoReminder.git
+git clone https://github.com/Prashithshetty/GeoReminder.git
 cd GeoReminder
 
-# Run Unit Tests
+# Run tests
 ./gradlew testDebugUnitTest
 
-# Build Debug APK
-./gradlew assembleDebug
-
-# Build Release APK
+# Build APKs
 ./gradlew assembleRelease
 ```
 
-Generated APKs will be located at:
-- **Debug**: `app/build/outputs/apk/debug/app-debug.apk`
-- **Release**: `app/build/outputs/apk/release/app-release.apk`
+The APK will be generated at `app/build/outputs/apk/release/app-release.apk`.
 
-### Sideloading onto Device
-
-#### Via ADB:
-```bash
-adb install -r app/build/outputs/apk/release/app-release.apk
-```
-
-#### Via KDE Connect / Wireless Transfer:
-1. Transfer `app-release.apk` or `app-debug.apk` to your phone.
-2. Tap the received APK notification and approve "Install from Unknown Sources".
-
-### Release Signing
-To sign with your custom release keystore, provide the following environment variables:
+To sign with your own keystore:
 ```bash
 export KEYSTORE_FILE="/path/to/keystore.jks"
-export KEYSTORE_PASSWORD="your-keystore-password"
-export KEY_ALIAS="your-key-alias"
-export KEY_PASSWORD="your-key-password"
-
+export KEYSTORE_PASSWORD="password"
+export KEY_ALIAS="alias"
+export KEY_PASSWORD="password"
 ./gradlew assembleRelease
 ```
-*Note: If no keystore is provided, `./gradlew assembleRelease` automatically signs with the debug key so the APK can be immediately sideloaded without manual signing.*
+If no keystore variables are provided, the release build automatically falls back to debug signing so the APK can be sideloaded immediately.
 
----
+## Tech Stack
 
-## 🧪 Testing
+- **UI**: Jetpack Compose, Material 3
+- **Map engine**: osmdroid 6.1.18
+- **Background**: Android Foreground Service + AlarmManager + WakeLock
+- **Architecture**: Single-activity, unidirectional state flow, coroutines
 
-Run automated unit tests:
-```bash
-./gradlew testDebugUnitTest
-```
+## License
 
-Run Android Lint checks:
-```bash
-./gradlew lintDebug
-```
-
----
-
-## 📄 License & Attribution
-
-- Released under the [Apache License 2.0](LICENSE).
-- Map data & tiles: © [OpenStreetMap](https://www.openstreetmap.org/copyright) contributors.
-- Map rendering engine: [osmdroid](https://github.com/osmdroid/osmdroid).
+[Apache 2.0](LICENSE). Map data © [OpenStreetMap](https://www.openstreetmap.org/copyright) contributors.
